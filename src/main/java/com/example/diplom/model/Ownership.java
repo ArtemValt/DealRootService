@@ -1,5 +1,6 @@
 package com.example.diplom.model;
 
+import com.example.diplom.security.annotation.ValidEgrn;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +21,7 @@ public class Ownership {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String numberOfShip;
+    @ValidEgrn
     private String numberEgrn;
 
     @OneToMany(orphanRemoval = true)

@@ -1,5 +1,6 @@
 package com.example.diplom.controller;
 
+import com.example.diplom.facade.DealFacade;
 import com.example.diplom.model.Deal;
 import com.example.diplom.model.Ownership;
 import com.example.diplom.model.Root;

@@ -1,6 +1,7 @@
 package com.example.diplom.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.*;
 
 @Entity
@@ -15,7 +16,7 @@ public class UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String password;
-    @ToString.Exclude
+    @Email
     private String email;
 
 }

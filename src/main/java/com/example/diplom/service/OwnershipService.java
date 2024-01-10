@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface OwnershipService {
     List<Ownership> getOwnerShipsByName(List<String> names);
+
+    Ownership saveOrUpdate(Ownership ownership);
+
 }

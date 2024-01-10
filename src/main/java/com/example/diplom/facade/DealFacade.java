@@ -1,4 +1,4 @@
-package com.example.diplom.controller;
+package com.example.diplom.facade;
 
 
 import com.example.diplom.model.Deal;
@@ -42,5 +42,13 @@ public class DealFacade {
     @Cacheable("deal")
     public Deal getDeals(Integer buyerId, List<Integer> sellersIds) {
         return dealService.getDeals(buyerId, sellersIds);
+    }
+
+    public Ownership saveOrUpdateOwnreship(Ownership ownership) {
+        return ownershipService.saveOrUpdate(ownership);
+    }
+
+    public Root saveOrUpdateRoot(Root root) {
+        return rootService.saveOrUpdate(root);
     }
 }
