@@ -1,7 +1,6 @@
 package com.example.diplom.controller;
 
 import com.example.diplom.facade.DealFacade;
-import com.example.diplom.model.Deal;
 import com.example.diplom.model.Ownership;
 import com.example.diplom.model.Root;
 import com.example.diplom.model.User;
@@ -54,7 +53,7 @@ public class DealController {
             @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(), mediaType = "application/json")}),
             @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema())}),
             @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})})
-    public ResponseEntity<Deal> getTutorialById(@RequestParam Integer buyerId, @RequestParam List<Integer> sellerId) {
+    public ResponseEntity<DealFacade.C> getTutorialById(@RequestParam Integer buyerId, @RequestParam List<Integer> sellerId) {
         return ResponseEntity.ok().body(dealFacade.getDeals(buyerId, sellerId));
     }
 

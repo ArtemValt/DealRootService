@@ -5,6 +5,7 @@ import com.example.diplom.repository.RootRepository;
 import com.example.diplom.service.RootService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.NoSuchElementException;
 
@@ -19,6 +20,7 @@ public class RootServiceImpl implements RootService {
     }
 
     @Override
+    @Transactional
     public Root saveOrUpdate(Root root) {
         Integer rootId = root.getId();
         if (rootId != null) {

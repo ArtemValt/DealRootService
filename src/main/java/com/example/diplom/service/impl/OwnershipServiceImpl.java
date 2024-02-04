@@ -5,6 +5,7 @@ import com.example.diplom.repository.OwnershipRepository;
 import com.example.diplom.service.OwnershipService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -21,6 +22,7 @@ public class OwnershipServiceImpl implements OwnershipService {
     }
 
     @Override
+    @Transactional
     public Ownership saveOrUpdate(Ownership ownership) {
         Integer ownershipId = ownership.getId();
         if (ownershipId != null) {
