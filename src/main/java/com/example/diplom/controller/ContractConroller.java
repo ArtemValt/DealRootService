@@ -1,31 +1,36 @@
 package com.example.diplom.controller;
 
-import com.example.diplom.facade.DealFacade;
-import com.example.diplom.model.Ownership;
-import com.example.diplom.model.Root;
+import com.example.diplom.facade.FileFacade;
+import com.example.diplom.model.Contract;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 @RestController
-@RequestMapping("root")
+@RequestMapping("/contract")
 @RequiredArgsConstructor
-public class RootController {
-    private final DealFacade facade;
-    @PostMapping("/save-uodate-root")
+public class ContractConroller {
+
+    private final FileFacade fileFacade;
+
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(path = "/save")
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(), mediaType = "application/json")}),
             @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema())}),
             @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})})
-    public ResponseEntity<Root> saveOrUpdateOwnership(@Valid Root root) {
-        Root rootResponse = facade.saveOrUpdateRoot(root);
-        return ResponseEntity.ok().body(rootResponse);
+    public ResponseEntity<Contract> downloadFile(@RequestBody Contract contract ) {
+        Contract saveContact = fileFacade.saveContact(contract);
+        return ResponseEntity.ok(saveContact);
     }
 }

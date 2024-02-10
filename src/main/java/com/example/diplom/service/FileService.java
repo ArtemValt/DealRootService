@@ -16,7 +16,7 @@ import java.util.Map;
 @Slf4j
 @RequiredArgsConstructor
 public class FileService {
-    private final String PATH = "/Users/belousovartem/IdeaProjects/bdcourse/Diplom/dq12.docx";
+    private final String PATH = "/Users/belousovartem/IdeaProjects/bdcourse/Diplom/Договор.docx";
     private final String DELIMITER = "&";
 
     public File getFileWithoutBookMarks(Map<String, String> bookmarks) {
@@ -37,6 +37,7 @@ public class FileService {
         InputStream fis = new FileInputStream(PATH);
         XWPFDocument document = new XWPFDocument(fis);
         List<XWPFParagraph> paragraphs = document.getParagraphs();
+        System.out.println(document.getParagraphs().stream().flatMap(x->x.getCTP().getBookmarkStartList().stream()).count());
         paragraphs.forEach(paragraph -> updateParagraph(bookmarks, paragraph));
         saveDataInDoc(document);
     }

@@ -1,6 +1,6 @@
 package com.example.diplom.controller;
 
-import com.example.diplom.service.FileService;
+import com.example.diplom.facade.FileFacade;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -15,20 +15,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.WebRequest;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/file")
 @RequiredArgsConstructor
 public class FileController {
 
-    final FileService fileService;
+    private final FileFacade fileFacade;
 
     @GetMapping
     @RequestMapping(path = "/{dealId}/download")
@@ -36,9 +34,9 @@ public class FileController {
             @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(), mediaType = "application/json")}),
             @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema())}),
             @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})})
-    public ResponseEntity<Resource> downloadFile(@PathVariable Long dealId, WebRequest webreuest) throws IOException {
+    public ResponseEntity<Resource> downloadFile(@PathVariable Integer dealId) throws IOException {
 
-        File file = fileService.getFileWithoutBookMarks(Map.of("замена", "qdqwhdqhwdhqwiod"));
+        File file = fileFacade.getFileWithoutBookMarks(dealId);
         HttpHeaders header = new HttpHeaders();
         header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=dq.docx");
         header.add("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -49,7 +47,7 @@ public class FileController {
         return ResponseEntity.ok()
                 .headers(header)
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .contentLength(file.length()) //
+                .contentLength(file.length())
                 .body(resource);
     }
 }
