@@ -37,17 +37,21 @@ public class FileController {
     public ResponseEntity<Resource> downloadFile(@PathVariable Integer dealId) throws IOException {
 
         File file = fileFacade.getFileWithoutBookMarks(dealId);
+        ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(Path.of(file.getAbsolutePath())));
+
+        return ResponseEntity.ok()
+                .headers(getHttpHeaders())
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .contentLength(file.length())
+                .body(resource);
+    }
+
+    private static HttpHeaders getHttpHeaders() {
         HttpHeaders header = new HttpHeaders();
         header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=dq.docx");
         header.add("Cache-Control", "no-cache, no-store, must-revalidate");
         header.add("Pragma", "no-cache");
         header.add("Expires", "0");
-        ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(Path.of(file.getAbsolutePath())));
-
-        return ResponseEntity.ok()
-                .headers(header)
-                .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .contentLength(file.length())
-                .body(resource);
+        return header;
     }
 }

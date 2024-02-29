@@ -23,6 +23,7 @@ public class Contract implements Serializable {
 
     @Id
     private Integer id;
+    private Integer userId;
     private LocalDateTime contractDate;
     private String city;
     private UserDetails seller;
