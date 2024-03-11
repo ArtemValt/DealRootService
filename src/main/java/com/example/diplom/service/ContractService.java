@@ -5,6 +5,7 @@ import com.example.diplom.repository.ContractRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -16,6 +17,9 @@ public class ContractService {
 
     public Contract getContractById(Integer id) {
         return contractRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    }
+    public List<Contract> getAllContacts(){
+        return contractRepository.findAll();
     }
 
     public Contract saveContract(Contract contract){

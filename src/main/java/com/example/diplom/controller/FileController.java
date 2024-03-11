@@ -46,7 +46,7 @@ public class FileController {
                 .body(resource);
     }
 
-    private static HttpHeaders getHttpHeaders() {
+    private HttpHeaders getHttpHeaders() {
         HttpHeaders header = new HttpHeaders();
         header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=dq.docx");
         header.add("Cache-Control", "no-cache, no-store, must-revalidate");
